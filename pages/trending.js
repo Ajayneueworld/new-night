@@ -150,11 +150,19 @@ const App = () =>{
 
   let [nft,setNft] = useState([])
 
+
+  useEffect(() =>{
+    fetch('../api/trending/')
+    .then(res => res.json())
+    .then(data => setNft(data.data.contracts.edges)    )
+  },[])
+
   const loadTrending = async() =>{
 
     let response = await fetch('https://graphql.icy.tools/graphql',{
       method : 'POST',
       headers : {
+        "access-control-allow-credentials": true,
 	      'Access-Control-Allow-Origin':'https://newnight.vercel.app',
         "x-api-key" : "7c11c4510bb54b4db9e70800b44ed02d",
           "Content-Type" : "application/json"
@@ -190,9 +198,9 @@ const App = () =>{
     console.log("the data is : ",data)
   }
 
-    useEffect(() =>{
-      loadTrending()
-    },[])
+    // useEffect(() =>{
+    //   loadTrending()
+    // },[])
     console.log("nft : ",nft)
     // return(
     //   <p>Trending Page</p>
