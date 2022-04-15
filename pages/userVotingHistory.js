@@ -3,7 +3,7 @@ import {useEffect,useState,useRef} from 'react';
 import useSWR from 'swr'
 
 
-function getuserdata (id) {
+function useGetuserdata (id) {
  
   const fetcher = (...args) => fetch(...args).then(res => res.json())
   const { data, error } = useSWR(`../api/users/${id}`, fetcher)
@@ -26,7 +26,7 @@ const VoteApp = ({web3}) =>{
   let nftIds = [];
   let nfts = []
   let [nftData,setNftData] = useState([])
-  let {userdata,isLoading,isError} = getuserdata(accounts)
+  let {userdata,isLoading,isError} = useGetuserdata(accounts)
   
   const setAccount = async() =>{
     if(web3 !== null){

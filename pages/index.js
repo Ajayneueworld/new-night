@@ -10,7 +10,7 @@ import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import useSWR from 'swr'
 
-function getuserdata (id) {
+function useGetuserdata (id) {
  
   const fetcher = (...args) => fetch(...args).then(res => res.json())
   const { data, error } = useSWR(`../api/users/${id}`, fetcher)
@@ -22,7 +22,7 @@ function getuserdata (id) {
   }
 }
 
-function getnftdata () {
+function useGetnftdata () {
  
   const fetcher = (...args) => fetch(...args).then(res => res.json())
   const { data, error } = useSWR(`../api/nfts/`, fetcher)
@@ -41,8 +41,8 @@ const App = ({web3}) =>{
   let [state,setState] = useState(true)
   let [currentvote,setCurrentVote] = useState(null)
 
-  let {nftdata,isLoadingnft,isErrornft} = getnftdata()
-  let {userdata,isLoading,isError} = getuserdata(accounts)
+  let {nftdata,isLoadingnft,isErrornft} = useGetnftdata()
+  let {userdata,isLoading,isError} = useGetuserdata(accounts)
   
   if(userdata){
     console.log("userdata is : ",userdata)
