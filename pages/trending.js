@@ -159,6 +159,7 @@ const App = () =>{
         "x-api-key" : "7c11c4510bb54b4db9e70800b44ed02d",
           "Content-Type" : "application/json"
       },
+      mode : 'cors',
       body : JSON.stringify({
         query : 
         `query TrendingCollections {
@@ -188,6 +189,7 @@ const App = () =>{
     setNft(data.data.contracts.edges)
     console.log("the data is : ",data)
   }
+
     useEffect(() =>{
       loadTrending()
     },[])
