@@ -155,7 +155,7 @@ const App = () =>{
     let response = await fetch('https://graphql.icy.tools/graphql',{
       method : 'POST',
       headers : {
-	      'Access-Control-Allow-Origin':'*',
+	      'Access-Control-Allow-Origin':'https://newnight.vercel.app',
         "x-api-key" : "7c11c4510bb54b4db9e70800b44ed02d",
           "Content-Type" : "application/json"
       },
