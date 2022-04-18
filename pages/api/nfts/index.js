@@ -6,8 +6,8 @@ dbConnect()
 
 export default async(req,res) => {
 
-    const {method} = req
-
+    const {method,query} = req
+    console.log("The query is : ",req.body.search)
     switch (method) {
 
         case 'POST':
