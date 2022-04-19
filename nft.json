@@ -1,26 +1,48 @@
          [
+            {
+                "address": "0x5630dd0f061291745233e76426d23f69abec0ccf",
+                "name": "IronApeClub(IAC)",
+                "symbol": "IAC",
+                 "voteByholders" : 0,
+                 "voteByNonholders" : 0,
+                 "signatures" : []  
+            },
           {
               "address": "0x4a8c9d751eeabc5521a68fb080dd7e72e46462af",
               "name": "Arcade Land",
               "symbol": "ARCLAND",
-               "vote" : 0
-            
+               "voteByholders" : 0,
+               "voteByNonholders" : 0,
+               "signatures" : []  
           },
           {
             
               "address": "0xaaf03a65cbd8f01b512cd8d530a675b3963de255",
               "name": "The Seekers",
               "symbol": "SEEKERS",
-              "vote" : 0
-
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
             
           },
+          {
+            "address": "0x7212e2ab00d7fe8bb290f8a2c311bf583835da40",
+            "name": "Cyber Ape Tower Club (Mint Pod)",
+            "symbol": "CATC",
+             "voteByholders" : 0,
+             "voteByNonholders" : 0,
+             "signatures" : []  
+        },
+          
           {
             
               "address": "0x1d0ec4a86ac39fef4485169b4d14dc39d0ea64cd",
               "name": "Sneaky's Internet Friends",
               "symbol": "SNIF",
-              "vote" : 0
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+              
             
           },
           {
@@ -28,7 +50,10 @@
               "address": "0xf25b304faf5c928936969d6f368bf6ba21270258",
               "name": "Official Kidzuki",
               "symbol": "KIDZUKI",
-              "vote" : 0
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+  
             
           },
           {
@@ -36,7 +61,10 @@
               "address": "0x524cab2ec69124574082676e6f654a18df49a048",
               "name": "Lil Pudgys",
               "symbol": "LP",
-              "vote" : 0
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,     
+              "signatures" : []  
+
             
           },
           {
@@ -44,39 +72,50 @@
               "address": "0xc92090f070bf50eec26d849c88a68112f4f3d98e",
               "name": "KaijuFrenz: Genesis",
               "symbol": "KAIJUFRENZ",
-              "vote" : 0
-            
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
           },
           {
             
               "address": "0xfa7e3f898c80e31a3aedeae8b0c713a3f9666264",
               "name": "Akuma Origins",
               "symbol": "Akuma",
-              "vote" : 0
-            
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
           },
           {
             
               "address": "0x4e1f41613c9084fdb9e34e11fae9412427480e56",
               "name": "Terraforms by Mathcastles",
               "symbol": "TERRAFORMS",
-              "vote" : 0
-            
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
           },
           {
             
               "address": "0xca95777971c7c438eecbd8bfc23249fbee99e716",
               "name": "Mutant Shiba Club | MSC",
               "symbol": "MSC",
-              "vote" : 0
-            
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
           },
           {
             
               "address": "0x5759110402aa65241fd03435646afd01a91ab948",
               "name": "Fuzzy Felons",
               "symbol": "FELON",
-              "vote" : 0
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
             
           },
           {
@@ -84,15 +123,20 @@
               "address": "0x092bbc993042a69811d23feb0e64e3bfa0920c6a",
               "name": "Gutter Juice",
               "symbol": "JUICE",
-              "vote" : 0
-            
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
           },
           {
             
               "address": "0xbe223020724cc3e2999f5dceda3120484fdbfef7",
               "name": "GURU Season Pass NFT V2",
               "symbol": "SeasonPass",
-              "vote" : 0
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
             
           },
           {
@@ -100,7 +144,10 @@
               "address": "0xca9e665df8f0f820593ab6be851acc319efdbc53",
               "name": "AlphaSkullz Genesis Force",
               "symbol": "GFAS",
-              "vote" : 0
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
             
           },
           {
@@ -108,7 +155,10 @@
               "address": "0x4addca4c07a5e9a6b4973094d03ad5aae7735e5b",
               "name": "(B)APETAVERSE",
               "symbol": "BVS",
-              "vote" : 0
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
             
           },
           {
@@ -116,7 +166,10 @@
               "address": "0x81ae0be3a8044772d04f32398bac1e1b4b215aa8",
               "name": "Dreadfulz",
               "symbol": "Dreadfulz",
-              "vote" : 0
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
             
           },
           {
@@ -124,23 +177,30 @@
               "address": "0xa45ef87f51b84dbd0d5b003d288b16d3d044fe6f",
               "name": "Dirtybird Flight Club",
               "symbol": "DFC",
-              "vote" : 0
-            
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
           },
           {
             
               "address": "0x306b1ea3ecdf94ab739f1910bbda052ed4a9f949",
               "name": "Something Official",
               "symbol": "SMTH",
-              "vote" : 0
-            
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
           },
           {
             
               "address": "0x701a038af4bd0fc9b69a829ddcb2f61185a49568",
               "name": "KIWAMI Genesis",
               "symbol": "KIWAMI",
-              "vote" : 0
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
             
           },
           {
@@ -148,7 +208,10 @@
               "address": "0x0000000005756b5a03e751bd0280e3a55bc05b6e",
               "name": "Villagers of XOLO",
               "symbol": "XOLO",
-              "vote" : 0
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
             
           },
           {
@@ -156,44 +219,58 @@
               "address": "0xa0768dc386712ed355f41d56bdbc05bfbb9c797b",
               "name": "Voiceverse - Origins",
               "symbol": "VVO",
-              "vote" : 0
-            
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
           },
           {
             
               "address": "0x2eb6be120ef111553f768fcd509b6368e82d1661",
               "name": "0xZuki",
               "symbol": "0xAzuki",
-              "vote" : 0
-            
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
           },
           {
             
               "address": "0x1554f51f18f8e3fbe83e4442420e40efc57ff446",
               "name": "Pop Art Cats by Matt Chessco",
               "symbol": "CATS",
-              "vote" : 0
-            
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
           },
           {
             
               "address": "0x9f4df153d95a8460f6e82c21cab92719781fab84",
               "name": "Colonists",
               "symbol": "CLNST",
-              "vote" : 0
-            
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
           },
           {
               "address": "0xd65c5d035a35f41f31570887e3ddf8c3289eb920",
               "name": "ETHTerrestrials",
               "symbol": "ETHT",
-              "vote" : 0
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
           },
           {
               "address": "0x9e8b85dbb082255bd81c5b25323b694bc799a616",
               "name": "Cereal Club",
               "symbol": "CEREAL",
-              "vote" : 0
+              "voteByholders" : 0,
+              "voteByNonholders" : 0,
+              "signatures" : []  
+
             }
         ]
   

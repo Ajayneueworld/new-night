@@ -1,19 +1,20 @@
-import dbConnect from "../../../middleware/connectdb";
-import User from "../../../models/users"
-import mongoose from "mongoose";
+import dbConnect from "../../../../../middleware/connectdb";
+import NFT from "../../../../../models/NFT"
 
 dbConnect()
 
+
 export default async(req,res) => {
 
-    const {method} = req
-
+    const {method,
+        query : {id}
+    } = req
+    console.log(req)
     switch (method) {
 
-        case 'POST':
+        case 'GET':
             try{
-                let stat = await User.create(req.body)
-
+                let stat = await NFT.findById(id)
                 if(!stat){
                     return res.status(400).json({success : false})
                 }
@@ -25,20 +26,22 @@ export default async(req,res) => {
             }
             break;
         
-            case 'GET':
+            case 'PUT':
                 try{
-                    let stat = await User.find({})
-    
+            
+
+                    let stat = await NFT.findByIdAndUpdate(id ,{$inc : {"voteByholders" : 1}},
+                    {multi : false})
                     if(!stat){
                         return res.status(400).json({success : false})
                     }
     
-                    res.status(200).json({success : true,data : stat})
+                    res.status(201).json({success : true,data : stat})
     
                 }catch(err){
                     res.status(400).json({success : false})
                 }
-                break;
+            break;
     
         default:
             break;

@@ -37,7 +37,7 @@ export default async function getdata(req,res){
 
   
     let data = await response.json()
-    
+
      res.status(201).json(data)
     }catch(error){
         console.log(error)

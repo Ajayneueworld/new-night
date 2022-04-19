@@ -1,6 +1,6 @@
-import dbConnect from "../../../middleware/connectdb";
-import NFT from "../../../models/NFT"
-import mongoose from "mongoose";
+import dbConnect from "../../../../../middleware/connectdb";
+import NFT from "../../../../../models/NFT"
+
 
 dbConnect()
 
@@ -9,7 +9,7 @@ export default async(req,res) => {
     const {method,
         query : {id}
     } = req
-    console.log("The query is : ",req.query)
+    console.log(req)
     switch (method) {
 
         case 'GET':
@@ -28,8 +28,9 @@ export default async(req,res) => {
         
             case 'PUT':
                 try{
-    
-                    let stat = await NFT.findByIdAndUpdate(id ,{$inc : {"vote" : 1}},
+            
+
+                    let stat = await NFT.findByIdAndUpdate(id ,{$inc : {"voteByNonholders" : 1}},
                     {multi : false})
                     if(!stat){
                         return res.status(400).json({success : false})

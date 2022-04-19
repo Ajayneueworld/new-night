@@ -147,65 +147,33 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () =>{
 
-
   let [nft,setNft] = useState([])
 
-
+  
   useEffect(() =>{
     fetch('../api/trending/')
     .then(res => res.json())
-    .then(data => setNft(data.data.contracts.edges)    )
+    .then(data => setNft(data.data.contracts.edges))
+    .then(insertImages())
   },[])
 
-  const loadTrending = async() =>{
+  const insertImages = async () =>{
 
-    let response = await fetch('https://graphql.icy.tools/graphql',{
-      method : 'POST',
-      headers : {
-        "access-control-allow-credentials": true,
-	      'Access-Control-Allow-Origin':'https://newnight.vercel.app',
-        "x-api-key" : "7c11c4510bb54b4db9e70800b44ed02d",
-          "Content-Type" : "application/json"
-      },
-      mode : 'cors',
-      body : JSON.stringify({
-        query : 
-        `query TrendingCollections {
-          contracts(orderBy: SALES, orderDirection: DESC) {
-            edges {
-              node {
-                address
-                ... on ERC721Contract {
-                  name
-                  stats {
-                    totalSales
-                    average
-                    ceiling
-                    floor
-                    volume
-                  }
-                  symbol
-                }
-              }
-            }
-          }
-        }`
-      })
-  })
+    nft.map((curr) => {
+      try{
+        let response = await fetch(`../api/trending/${curr.node.address}`)
+        let data = response.json()
+        console.log(data)
+      }
+      catch(error){
+        console.log(error)
+      }
+    })
 
-    let data = await response.json()
-    setNft(data.data.contracts.edges)
-    console.log("the data is : ",data)
   }
 
-    // useEffect(() =>{
-    //   loadTrending()
-    // },[])
-    console.log("nft : ",nft)
-    // return(
-    //   <p>Trending Page</p>
-    // )
-  return(
+  console.log("The nft are : ",nft)
+  return( 
     
   <div className="container">
   <div className="row text-center">

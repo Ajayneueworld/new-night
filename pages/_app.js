@@ -16,8 +16,6 @@ function MyApp({ Component, pageProps}) {
   let [web3,setWeb3] = useState(null)
   let [userdata,setData] = useState(null)
   let [nftdata,setnftData] = useState(null)
-  console.log("_app")
-
   
   // setnftData(data)
   // wallet instances

@@ -16,10 +16,19 @@ const NFTstruct = new mongoose.Schema(
                 unique : true
             },
 
-        vote : {
+        voteByholders : {
                 type : Number,
                 default : 0
-            }
+            },
+        voteByNonholders : {
+                type : Number,
+                default : 0
+            },
+        signatures : {
+            type : [String],
+            default : null
+            
+        }
     }
 )
 

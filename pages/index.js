@@ -13,7 +13,7 @@ import useSWR from 'swr'
 function useGetuserdata (id) {
  
   const fetcher = (...args) => fetch(...args).then(res => res.json())
-  const { data, error } = useSWR(`../api/users/${id}`, fetcher)
+  const { data, error } = useSWR(`/api/users/${id}`, fetcher)
 
   return {
     userdata: data,
@@ -25,7 +25,7 @@ function useGetuserdata (id) {
 function useGetnftdata () {
  
   const fetcher = (...args) => fetch(...args).then(res => res.json())
-  const { data, error } = useSWR(`../api/nfts/`, fetcher)
+  const { data, error } = useSWR(`/api/nfts/`, fetcher)
 
   return {
     nftdata: data,
@@ -40,7 +40,7 @@ const App = ({web3}) =>{
   let [accounts,setAccounts] = useState(null)
   let [state,setState] = useState(true)
   let [currentvote,setCurrentVote] = useState(null)
-
+  const router = useRouter()
   let {nftdata,isLoadingnft,isErrornft} = useGetnftdata()
   let {userdata,isLoading,isError} = useGetuserdata(accounts)
   
@@ -53,7 +53,6 @@ const App = ({web3}) =>{
   else{
     console.log("oh ! got the error")
   }
-  const router = useRouter()
   
   const setAccount = async() =>{
       let account = await web3.eth.getAccounts()
@@ -76,60 +75,82 @@ const App = ({web3}) =>{
     data = data.data
   }
 
-const vote = async(props) =>{
-  
-  if(web3 === null){
-    alert('wallet not connected')
-    return
+
+const voteByholder = async (props) =>{
+
+  let voted = data.votingHistory
+
+  // checking if user has already voted for the NFT
+  if(voted.includes(props._id)){
+      alert("already voted")
+      return
+    }
+
+  let msg = `You are voting for ${props.name}`
+  console.log("The message is : ",msg)
+
+    // requesting for signature
+  let sign = await web3.eth.personal.sign(msg,accounts)
+  console.log(sign)
+
+  // updating the non voted nft
+  let req = await fetch(`/api/nfts/vote/voteByholders/${props._id}`,{
+  method : 'PUT',
+  headers : {
+    "Content-Type" : "application/json"
+  },
+  })
+
+if(req.ok){
+  console.log("pushing address is : ",data._id)
+  let val = {
+    "votingHistory" : data._id
   }
-  let data;
-  if(userdata !== undefined && userdata.success){
-    console.log("you got it right")
-    data = userdata.data
-  }
+  let request = await fetch(`api/users/${accounts}`,{
+    method : 'PUT',
+    headers : {
+      "Content-Type" : "application/json"
+    },
+    body : JSON.stringify(val)
+  })
+}
+else{
+  console.log("cannot vote")
+}
+}
 
-  console.log("fetched data is : ",data)
-  let account = await web3.eth.getAccounts()
-   account = account[0]
-  
-  //  const request = await fetch(`../api/users/${account}`,{
-  //   method : 'GET',
-  //   headers : {
-  //     "Content-Type" : "application/json"
-  //   }
-  // })
-
-   //let {data} = await request.json()
-
+const voteByNonholder = async (props,data) =>{
+  console.log("voted by non holders")
     let voted = data.votingHistory
-  
-    if(voted.includes(props._id)){
+
+  // checking if user has already voted for the NFT
+  if(voted.includes(props._id)){
       alert("already voted")
       return
     }
 
     // showing user the message
-    let msg = `You are voting for ${props.name}`
-    console.log("The message is : ",msg)
+  let msg = `You are voting for ${props.name}`
+  console.log("The message is : ",msg)
 
     // requesting for signature
-    let sign = await web3.eth.personal.sign(msg,account)
+  let sign = await web3.eth.personal.sign(msg,accounts)
+  console.log(sign)
 
-    // after sign updating nft vote in DB
-    let req = await fetch(`api/nfts/${props._id}`,{
-      method : 'PUT',
-      headers : {
-        "Content-Type" : "application/json"
-      }
-    })
+  // updating the non voted nft
+  let req = await fetch(`/api/nfts/vote/voteByNonholders/${props._id}`,{
+  method : 'PUT',
+  headers : {
+    "Content-Type" : "application/json"
+  },
+})
 
-    // if vote is successful, pushing this address into users votingHistory
     if(req.ok){
-      console.log("pushing address is : ",props._id)
+      console.log("pushing address is : ",data._id)
       let val = {
-        "votingHistory" : props._id
+        "votingHistory" : data._id
       }
-      let request = await fetch(`api/users/${account}`,{
+      let request = await fetch(`api/users/${accounts}`,{
         method : 'PUT',
         headers : {
           "Content-Type" : "application/json"
@@ -140,6 +161,69 @@ const vote = async(props) =>{
     else{
       console.log("cannot vote")
     }
+}
+
+
+const vote = async(props) =>{
+
+
+  // get user data from database
+  console.log(props)
+  let data;
+  if(userdata !== undefined && userdata.success){
+    data = userdata.data
+  }
+
+  // getting holding token data from icytools api 
+  let holdTokens = await fetch(`/api/trending/${accounts}`)
+  holdTokens = await holdTokens.json()
+
+  let hold = false
+
+    if(holdTokens.data.wallet !== null){
+      holdTokens.data.wallet.tokens.edges.map((curr) => {
+        if(props.symbol === curr.node.contract.symbol){
+          hold = true
+          console.log("symbol is : ",props.symbol)
+        }
+      })
+    }
+
+    if(hold){
+      console.log("holder of this Nft")
+      voteByholder(props,data)
+    }else{
+      console.log("not holding it ")
+      voteByNonholder(props,data)
+    }
+
+    // getting voted nft by the user
+  let voted = data.votingHistory
+
+  // checking if user has already voted for the NFT
+  if(voted.includes(props._id)){
+      alert("already voted")
+      return
+    }
+
+
+    // if vote is successful, pushing this address into users votingHistory
+    // if(req.ok){
+    //   console.log("pushing address is : ",props._id)
+    //   let val = {
+    //     "votingHistory" : props._id
+    //   }
+    //   let request = await fetch(`api/users/${account}`,{
+    //     method : 'PUT',
+    //     headers : {
+    //       "Content-Type" : "application/json"
+    //     },
+    //     body : JSON.stringify(val)
+    //   })
+    // }
+    // else{
+    //   console.log("cannot vote")
+    // }
 }
 
 // chossing high risk of rendering over other options
@@ -179,7 +263,9 @@ const vote = async(props) =>{
 		          <div className="card-body">
 		          <h5 className="card-title">{curr.name}</h5>
               <p className="card-title">{curr.symbol}</p>
-              <p className="card-title">Current votes {curr.vote}</p>
+              <p className="card-title">Current votes by Holders {curr.voteByholders}</p>
+              <p className="card-title">Current votes by Non - Holders {curr.voteByNonholders}</p>
+              <p className="card-title">Total votes  { curr.voteByholders + curr.voteByNonholders }</p>
 		          <button className="btn btn-primary stretched-link" disabled = {state} onClick = {() => vote(curr)}>vote</button>
 		          <p className="card-text"></p>
 		      </div>
