@@ -72,10 +72,8 @@ const VoteApp = ({web3}) =>{
   setNftData(nfts)
 
 }
+console.log(nftData)
 
-useEffect(() =>{
-  console.log("refreshing data")
-})
 // chossing high risk of rendering over other options
 useEffect(() =>{
   if(web3 !== null && userdata !== undefined){

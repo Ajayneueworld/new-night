@@ -121,11 +121,11 @@ function MyApp({ Component, pageProps}) {
       <Link href = "/trending">
       <a className="navbar-brand mb-0 h1">Trending</a>
       </Link></ul>
-    <ul>
+    {/* <ul>
       <Link href = "/userVotingHistory">
       <a className="navbar-brand mb-0 h1">Voted</a>
       </Link>
-      </ul>
+      </ul> */}
   </nav>
   <br/>
         <Component {...pageProps}

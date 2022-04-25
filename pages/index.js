@@ -39,22 +39,12 @@ const App = ({web3}) =>{
   // hook to keep track of account
   let [accounts,setAccounts] = useState(null)
   let [state,setState] = useState(true)
-  let [currentvote,setCurrentVote] = useState(null)
-  const router = useRouter()
   let {nftdata,isLoadingnft,isErrornft} = useGetnftdata()
+  const router = useRouter()
   let {userdata,isLoading,isError} = useGetuserdata(accounts)
   
-  if(userdata){
-    console.log("userdata is : ",userdata)
-  }
-  else if(isLoading){
-    console.log("still loading")
-  }
-  else{
-    console.log("oh ! got the error")
-  }
-  
-  const setAccount = async() =>{
+
+  const setAccount = async() =>{ 
       let account = await web3.eth.getAccounts()
       account = account[0]
       setAccounts(account)
@@ -66,20 +56,10 @@ const App = ({web3}) =>{
     }
   })
 
-  const fetcher = (...args) => fetch(...args).then(res => res.json())
- 
-  const {data,error} = useSWR(`../api/nfts/`,fetcher)
-
-
-  if(data !== undefined){
-    data = data.data
-  }
-
-
-const voteByholder = async (props) =>{
+const voteByholder = async (props,data) =>{
 
   let voted = data.votingHistory
-
+  console.log(voted)
   // checking if user has already voted for the NFT
   if(voted.includes(props._id)){
       alert("already voted")
@@ -101,28 +81,30 @@ const voteByholder = async (props) =>{
   },
   })
 
-if(req.ok){
-  console.log("pushing address is : ",data._id)
-  let val = {
-    "votingHistory" : data._id
+  if(req.ok){
+    console.log("pushing address is : ",props._id)
+    let val = {
+      "votingHistory" : props._id
+    }
+    let request = await fetch(`api/users/${accounts}`,{
+      method : 'PUT',
+      headers : {
+        "Content-Type" : "application/json"
+      },
+      body : JSON.stringify(val)
+    })
+    router.push("/")
   }
-  let request = await fetch(`api/users/${accounts}`,{
-    method : 'PUT',
-    headers : {
-      "Content-Type" : "application/json"
-    },
-    body : JSON.stringify(val)
-  })
-}
-else{
-  console.log("cannot vote")
-}
+  else{
+    console.log("cannot vote")
+  }
 }
 
 const voteByNonholder = async (props,data) =>{
   console.log("voted by non holders")
+  console.log("data is : ",data)
     let voted = data.votingHistory
-
+    
   // checking if user has already voted for the NFT
   if(voted.includes(props._id)){
       alert("already voted")
@@ -146,9 +128,9 @@ const voteByNonholder = async (props,data) =>{
 })
 
     if(req.ok){
-      console.log("pushing address is : ",data._id)
+      console.log("pushing address is : ",props._id)
       let val = {
-        "votingHistory" : data._id
+        "votingHistory" : props._id
       }
       let request = await fetch(`api/users/${accounts}`,{
         method : 'PUT',
@@ -157,6 +139,7 @@ const voteByNonholder = async (props,data) =>{
         },
         body : JSON.stringify(val)
       })
+      router.push("/")
     }
     else{
       console.log("cannot vote")
@@ -165,10 +148,7 @@ const voteByNonholder = async (props,data) =>{
 
 
 const vote = async(props) =>{
-
-
   // get user data from database
-  console.log(props)
   let data;
   if(userdata !== undefined && userdata.success){
     data = userdata.data
@@ -195,41 +175,12 @@ const vote = async(props) =>{
     }else{
       console.log("not holding it ")
       voteByNonholder(props,data)
-    }
-
-    // getting voted nft by the user
-  let voted = data.votingHistory
-
-  // checking if user has already voted for the NFT
-  if(voted.includes(props._id)){
-      alert("already voted")
-      return
-    }
-
-
-    // if vote is successful, pushing this address into users votingHistory
-    // if(req.ok){
-    //   console.log("pushing address is : ",props._id)
-    //   let val = {
-    //     "votingHistory" : props._id
-    //   }
-    //   let request = await fetch(`api/users/${account}`,{
-    //     method : 'PUT',
-    //     headers : {
-    //       "Content-Type" : "application/json"
-    //     },
-    //     body : JSON.stringify(val)
-    //   })
-    // }
-    // else{
-    //   console.log("cannot vote")
-    // }
+    } 
 }
 
 // chossing high risk of rendering over other options
   useEffect(() =>{
     if(web3 !== null){
-      console.log("button")
        setState(false)
     }
   })

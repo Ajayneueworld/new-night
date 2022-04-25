@@ -1,47 +1,48 @@
-export default async function getdata(req,res){
+import dbConnect from "../../../middleware/connectdb";
+import Trending from "../../../models/trending"
+import mongoose from "mongoose";
 
-    try {
-        let response = await fetch('https://graphql.icy.tools/graphql',{
-      method : 'POST',
-      headers : {
-        "access-control-allow-credentials": true,
-	      'Access-Control-Allow-Origin':'https://newnight.vercel.app',
-        "x-api-key" : "7c11c4510bb54b4db9e70800b44ed02d",
-          "Content-Type" : "application/json"
-      },
-      mode : 'cors',
-      body : JSON.stringify({
-        query : 
-        `query TrendingCollections {
-          contracts(orderBy: SALES, orderDirection: DESC) {
-            edges {
-              node {
-                address
-                ... on ERC721Contract {
-                  name
-                  stats {
-                    totalSales
-                    average
-                    ceiling
-                    floor
-                    volume
-                  }
-                  symbol
+dbConnect()
+
+export default async(req,res) => {
+
+            
+    const {method,query} = req
+    switch (method) {
+
+        case 'POST':
+            try{
+                let stat = await Trending.create(req.body)
+
+                if(!stat){
+                    return res.status(400).json({success : false})
                 }
-              }
+
+                res.status(201).json({success : true,data : stat})
+
+            }catch(err){
+                res.status(400).json({success : false})
             }
-          }
-        }`
-      })
-  })
+            break;
 
-  
-    let data = await response.json()
+        case 'GET':
+            try{
+                let stat = await Trending.find({})
 
-     res.status(201).json(data)
-    }catch(error){
-        console.log(error)
-        return res.status(error.status || 500).end(error.message)
+                if(!stat){
+                    return res.status(400).json({success : false})
+                }
+
+                res.status(201).json({success : true,data : stat})
+
+            }catch(err){
+                res.status(400).json({success : false})
+            }
+            break;
+        
+    
+        default:
+            break;
     }
-
+    
 }
